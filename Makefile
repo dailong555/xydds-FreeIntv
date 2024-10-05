@@ -339,6 +339,16 @@ else ifeq ($(platform), miyoo)
 	SHARED := -shared -Wl,--version-script=link.T -Wl,-no-undefined
 	CFLAGS += -mcpu=arm926ej-s -ffast-math
 
+# XYDDS
+else ifeq ($(platform), xydds)
+	TARGET := $(TARGET_NAME)_libretro.so
+	CC = /opt/xydds/usr/bin/arm-linux-gcc
+	AR = /opt/xydds/usr/bin/arm-linux-ar
+	fpic := -fPIC
+	SHARED := -shared -Wl,--version-script=link.T -Wl,-no-undefined
+	CFLAGS += -ffast-math -marm -mfpu=neon-vfpv4 -mfloat-abi=hard
+	CFLAGS += -DARM -mcpu=cortex-a7
+
 # Windows MSVC 2010 x64
 else ifeq ($(platform), windows_msvc2010_x64)
 	CC  = cl.exe
